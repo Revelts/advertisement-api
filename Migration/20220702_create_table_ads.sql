@@ -22,3 +22,19 @@ CREATE TABLE public.log (
     type int,
     cost numeric
 )
+
+CREATE TABLE public.transaction (
+   trx_id serial PRIMARY KEY,
+   advertisement_id int,
+   company_id int,
+   start_advertising timestamp without time zone,
+   end_advertising timestamp without time zone,
+   advertisement_location VARCHAR(255),
+   fee numeric
+)
+
+CREATE TABLE public.transaction_status (
+   trx_id int,
+   status int,
+   created_at int
+)
