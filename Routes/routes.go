@@ -15,16 +15,12 @@ func HandleRequests() {
 		r.Route("/company", func(r chi.Router) {
 			r.Get("/viewallcompany", Controller.ViewAllCompany)
 			r.Post("/createcompany", Controller.CreateCompany)
-			//r.Get("/", Controller.ViewAllSembako)
-			//r.Put("/", Controller.EditSembako)
-			//r.Delete("/", Controller.DeleteSembako)
 		})
 		r.Route("/ads", func(r chi.Router) {
 			r.Get("/viewalladvertisement", Controller.ViewAllAdvertisement)
 			r.Post("/placeadvertisement", Controller.PlaceAdvertisement)
-			//r.Get("/", Controller.ViewAllSembako)
-			//r.Put("/", Controller.EditSembako)
-			//r.Delete("/", Controller.DeleteSembako)
+			r.Put("/buyadvertisement", Controller.BuyAdvertisement)
+
 		})
 	})
 	err := http.ListenAndServe(":3000", r)
