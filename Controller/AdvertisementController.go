@@ -48,15 +48,36 @@ func ViewAllAdvertisement(w http.ResponseWriter, r *http.Request) {
 	Library.HttpResponseSuccess(w, r, resp)
 }
 
+func BuyAdvertisement(w http.ResponseWriter, r *http.Request) {
+	var requestBody Dto.BuyAdvertisement
+	var resp Dto.RespBuyAdvertisement
+	var err error
+
+	err = json.NewDecoder(r.Body).Decode(&requestBody)
+	if err != nil {
+		Library.HttpResponseError(w, r, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	repository := Repository.AllRepository.Advertisement
+	resp.Id, err = repository.BuyAdvertisement(requestBody)
+	if err != nil {
+		Library.HttpResponseError(w, r, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	resp.Message = fmt.Sprintf("You have successfully buy an advertisement id %d", resp.Id)
+	Library.HttpResponseSuccess(w, r, resp)
+}
+
 func PlaceAdvertisement(w http.ResponseWriter, r *http.Request) {
-	var requestBody Dto.CreateAdvertisement
+	var requestBody Dto.AdvertisementAttributes
 	var err error
 	err = json.NewDecoder(r.Body).Decode(&requestBody)
 	if err != nil {
 		Library.HttpResponseError(w, r, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(requestBody)
+
 	Company := Repository.AllRepository.Company
 	Ads := Repository.AllRepository.Advertisement
 	company, err := Company.GetCompanyProfile(requestBody.CreatedBy)
