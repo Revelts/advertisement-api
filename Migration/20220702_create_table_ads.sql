@@ -36,5 +36,5 @@ CREATE TABLE public.transaction (
 CREATE TABLE public.transaction_status (
    trx_id int,
    status int,
-   created_at int
+   created_at timestamp without time zone default now()
 )

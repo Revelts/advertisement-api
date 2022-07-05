@@ -7,15 +7,15 @@ type SuccessCreateAdvertisement struct {
 }
 
 type SuccessBuyAdvertisement struct {
-	Message           string                  `json:"message"`
-	CompanyInfo       UpdatedCompanyBalance   `json:"company_info"`
-	AdvertisementInfo AdvertisementAttributes `json:"advertisement_info"`
-	//TransactionInfo   Models.Transaction      `json:"transaction_info"`
+	TransactionInfo       Transaction       `json:"transaction_info"`
+	TransactionInfoStatus TransactionStatus `json:"transaction_info_status"`
 }
 
 type BuyAdvertisement struct {
-	AdvertisementId int `json:"advertisement_id"`
-	CompanyId       int `json:"company_id"`
+	AdvertisementId int    `json:"advertisement_id"`
+	CompanyId       int    `json:"company_id"`
+	DayDuration     int    `json:"day_duration"`
+	Location        string `json:"location"`
 }
 
 type RespBuyAdvertisement struct {

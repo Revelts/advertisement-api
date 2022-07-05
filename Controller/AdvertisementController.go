@@ -50,7 +50,7 @@ func ViewAllAdvertisement(w http.ResponseWriter, r *http.Request) {
 
 func BuyAdvertisement(w http.ResponseWriter, r *http.Request) {
 	var requestBody Dto.BuyAdvertisement
-	var resp Dto.RespBuyAdvertisement
+	var resp Dto.SuccessBuyAdvertisement
 	var err error
 
 	err = json.NewDecoder(r.Body).Decode(&requestBody)
@@ -60,12 +60,12 @@ func BuyAdvertisement(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repository := Repository.AllRepository.Advertisement
-	resp.Id, err = repository.BuyAdvertisement(requestBody)
+	resp, err = repository.BuyAdvertisement(requestBody)
 	if err != nil {
 		Library.HttpResponseError(w, r, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	resp.Message = fmt.Sprintf("You have successfully buy an advertisement id %d", resp.Id)
+
 	Library.HttpResponseSuccess(w, r, resp)
 }
 
